@@ -26,17 +26,17 @@ export default function VerticalChat() {
   const setHideTextArea = useMessageStore(state => state.setHideTextArea)
 
   const steps = [
-    {
-      label: 'Start',
-      description: (
-        <div className="flex flex-col gap-2 rounded-2xl bg-muted sm:p-8 p-4 text-sm sm:text-base items-start mt-5">
-          <h2 className="text-sm sm:text-xl tracking-tight  max-w-fit inline-block">
-            Start the process by entering the problem statement
-          </h2>
-          <RefreshTopics />
-        </div>
-      )
-    },
+    // {
+    //   label: 'Start',
+    //   description: (
+    //     <div className="flex flex-col gap-2 rounded-2xl bg-muted sm:p-8 p-4 text-sm sm:text-base items-start mt-5">
+    //       <h2 className="text-sm sm:text-xl tracking-tight  max-w-fit inline-block">
+    //         Start the process by entering the problem statement
+    //       </h2>
+    //       <RefreshTopics />
+    //     </div>
+    //   )
+    // },
     {
       label: 'Problem Statement',
       description: (

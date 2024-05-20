@@ -20,6 +20,7 @@ import {
 } from '../../models/db'
 import Cookie from 'js-cookie'
 import { useLiveQuery } from 'dexie-react-hooks'
+import { TOPIC_GENERATION_BASE_URL } from '../../utils/constants'
 
 function TopicSelection() {
   const messages = useMessageStore(state => state.messages)
@@ -30,18 +31,37 @@ function TopicSelection() {
 
   const [chatId, _] = useState(() => localStorage.getItem('newChatId'))
   const user = Cookie.get('email')
-  
-  const internalTopics = useLiveQuery(()=>{
-     return db.internalTopics
-  },[])
+
+  const internalTopics = useLiveQuery(() => {
+    return db.internalTopics
+  }, [])
 
   useEffect(() => {
     ;(async () => {
-      console.log('internalTopics', internalTopics);
-      
+      console.log('internalTopics', internalTopics)
+
       if (chatId && user && !internalTopics) {
         await saveInternalTopics(user, JSON.parse(chatId), topics)
         await saveExternalTopics(user, JSON.parse(chatId), topics2)
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await fetch(TOPIC_GENERATION_BASE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          stepId: 1,
+          query: messages
+        })
+      }).then(res => res.json())
+
+      if (response) {
+        console.log('response', response)
       }
     })()
   }, [])
