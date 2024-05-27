@@ -217,7 +217,10 @@ function TopicSelection() {
 
   return (
     <div className="px-40">
-      <StepDefinition stepName="Research Topics" route="/process" />
+      <StepDefinition
+        stepName="Research Topics"
+        route="/process/problem-statement"
+      />
       <div className="bg-zinc-50 px-4 flex flex-col gap-4 overflow-auto max-h-[50vh] w-full mt-5">
         <VerticalTabs
           FistComp={

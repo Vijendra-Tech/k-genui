@@ -3,21 +3,30 @@ import { useMessageStore } from '../../stores/useMessageStore'
 import { Button } from '../ui/button'
 import BotMessage from '../bot-message'
 import Confirmation from './confirmation'
-import PPTOutPut from './ppt-output'
+// import PPTOutPut from './ppt-output'
+import { StepDefinition } from '../step-def'
+import MultiCarousalSlide from '../multi-slide-carousal'
+import { useNavigate } from 'react-router-dom'
 
 function GenerateStoryLine() {
   const messages = useMessageStore(state => state.messages)
   const setMessages = useMessageStore(state => state.setMessages)
   const featureFlag = useMessageStore(state => state.featureFlag)
+  const navigate = useNavigate()
   return (
-    <div className="rounded-2xl bg-muted flex flex-col px-4 py-5 space-y-2">
-      {/* <div className="flex gap-4">
-        <h2>Generate Storyline</h2>
-        <Button>Create</Button>
-      </div> */}
+    <div className="rounded-2xl flex flex-col px-40 py-5 space-y-2">
+      <StepDefinition stepName="View Storyline" route="/process/view-summary" />
       <div className="">
-        <p>Your Storyline is ready , Check this</p>
-        <PPTOutPut /> 
+        <h1 className="text-xl">Your Storyline is ready , Check this</h1>
+        <MultiCarousalSlide items={4}>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <img
+              src={`https://images.unsplash.com/photo-1550338861-b7cfeaf8ffd8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60`}
+              alt={`Storyline ${index}`}
+              className="h-80 w-80 rounded-lg"
+            />
+          ))}
+        </MultiCarousalSlide>
       </div>
       <div className="flex justify-end">
         {featureFlag === 'v1' && (
@@ -56,6 +65,16 @@ function GenerateStoryLine() {
           </Select>
         </FormControl>
       </div> */}
+      <hr />
+      <div className="flex justify-end">
+        <Button
+          onClick={() => {
+            navigate('/process/generate-draft')
+          }}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   )
 }

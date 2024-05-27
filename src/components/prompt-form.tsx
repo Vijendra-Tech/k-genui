@@ -10,6 +10,7 @@ import { useMessageStore } from '../stores/useMessageStore'
 import UserMessage from './user-message'
 import BotMessage from './bot-message'
 import TopicSelection from './process/topic-selection'
+import { useNavigate } from 'react-router-dom'
 
 export function PromptForm({
   input,
@@ -27,6 +28,7 @@ export function PromptForm({
   const setProblemStatement = useMessageStore(
     state => state.setProblemStatement
   )
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     if (inputRef.current) {
@@ -62,6 +64,7 @@ export function PromptForm({
           }
         ])
         setProblemStatement(value)
+        navigate('/process/problem-statement')
       }}
       
     >
