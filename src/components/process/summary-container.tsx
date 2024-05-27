@@ -21,7 +21,7 @@ function SummaryContainer({
 }: SummaryContainerProps) {
   return (
     <div className="flex gap-2 flex-col w-full">
-      <div className="flex gap-2  justify-between items-center bg-muted h-10 rounded-md px-4 py-5">
+      <div className="flex gap-2  justify-between items-center h-10 rounded-md px-4 py-5">
         <h4>
           <a href={dackLink} target="_blank">
             {title}

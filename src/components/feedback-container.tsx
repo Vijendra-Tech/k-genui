@@ -26,7 +26,7 @@ function FeedabackConatainer({
         <>
           {/* {createPortal( */}
           <div
-            className="absolute bg-white  flex flex-col gap-2 py-5 px-5 z-50 w-60 h-56 top-0 left-28 "
+            className="absolute bg-white flex flex-col gap-2 py-5 px-5 z-[1000] w-72 h-72 top-0 left-2"
             ref={ref}
           >
             <div className="flex gap-2 justify-between">

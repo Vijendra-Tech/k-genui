@@ -5,6 +5,7 @@ import PushPinIcon from '@mui/icons-material/PushPin'
 import FeedbackIcon from '@mui/icons-material/Feedback'
 import FeedabackConatainer from './feedback-container'
 import { Select } from '@mui/material'
+import MultiCarousalSlide from './multi-slide-carousal'
 
 interface ImagesCarausalProps {
   imgs: Array<string>
@@ -21,26 +22,12 @@ function ImagesCarausal({ imgs }: ImagesCarausalProps) {
         </div>
       )}
       <Suspense fallback={<>Loading...</>}>
-        <div className="relative">
-          <Carousel
-            showThumbs={false}
-            autoFocus={true}
-            showArrows={true}
-            useKeyboardArrows={true}
-            // onClickItem={(index, item) => setOpen(false)}
-            className="w-full h-full presentation-mode border-2"
-            showIndicators={false}
-          >
+        <div className="relative mt-2">
+          <MultiCarousalSlide items={2}>
             {imgs?.map((src, index) => (
-              <div className="flex gap-2 px-8 justify-start items-center bg-black">
-                {/* <PushPinIcon
-              className="cursor-pointer text-white bg-primary rounded-full w-2 h-2"
-              onClick={() => {
-                console.log('clicked')
-              }}
-            /> */}
+              <div className="flex gap-2 px-2 justify-start items-center">
                 <div
-                  className="w-[65%] shadow-md border-2 border-t-purple-700 bg-white my-5 mx-5 flex flex-col justify-center items-center ml-24"
+                  className="w-[70%] shadow-md border-2 border-t-purple-700 bg-white my-5 lex flex-col justify-center items-center mx-32"
                   key={index}
                 >
                   <div className="relative flex space-x-20 justify-between">
@@ -64,7 +51,7 @@ function ImagesCarausal({ imgs }: ImagesCarausalProps) {
                     <FeedabackConatainer
                       show={open}
                       setShow={setOpen}
-                      className="border border-primary rounded shadow-lg h-full w-full px-2"
+                      className="border border-primary rounded shadow-lg h-full w-full px-2 z-50"
                     >
                       <p className="text-xs">Please provide your feedback</p>
                       <Select className="w-full h-10 px-2">
@@ -84,7 +71,7 @@ function ImagesCarausal({ imgs }: ImagesCarausalProps) {
                 </div>
               </div>
             ))}
-          </Carousel>
+          </MultiCarousalSlide>
         </div>
       </Suspense>
     </>

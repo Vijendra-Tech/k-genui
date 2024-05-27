@@ -54,38 +54,46 @@ function VerticalTabs({ FistComp, SecondComp }: VerticalTabsProps) {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: 'background.paper',
-        display: 'flex'
+        bgcolor: 'zinc-50',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        justifyContent: 'center',
+        paddingX:'10px',
+        paddingY:'10px',
+        marginTop:'10px',
       }}
+      // sx={{ width: '100%' }}
     >
       <Tabs
-        orientation="vertical"
-        variant="scrollable"
+        // orientation="horizontal"
+        // variant="scrollable"
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: 'divider', minWidth: '200px' }}
+        // sx={{ borderRight: 1, borderColor: 'divider', minWidth: '200px' }}
+        indicatorColor="secondary"
       >
         <Tab
           label="Internal Topics"
           {...a11yProps(0)}
-          sx={{
-            '&.Mui-selected': {
-              color: 'white',
-              backgroundColor: 'hsl(var(--primary))'
-            }
-          }}
+          // sx={{
+          //   '&.Mui-selected': {
+          //     color: 'white',
+          //     backgroundColor: 'hsl(var(--primary))'
+          //   }
+          // }}
         />
         <Tab
           label="External Topics"
           {...a11yProps(1)}
-          sx={{
-            '&.Mui-selected': {
-              color: 'white',
-              backgroundColor: 'hsl(var(--primary))'
-            },
-            color: ''
-          }}
+          // sx={{
+          //   '&.Mui-selected': {
+          //     color: 'white',
+          //     backgroundColor: 'hsl(var(--primary))'
+          //   },
+          //   color: ''
+          // }}
         />
       </Tabs>
       <div className="overflow-auto">

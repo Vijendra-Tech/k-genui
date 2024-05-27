@@ -21,16 +21,20 @@ import {
 import Cookie from 'js-cookie'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { TOPIC_GENERATION_BASE_URL } from '../../utils/constants'
+import { StepDefinition } from '../step-def'
+import { useNavigate } from 'react-router-dom'
 
 function TopicSelection() {
   const messages = useMessageStore(state => state.messages)
   const featureFlag = useMessageStore(state => state.featureFlag)
   const setMessages = useMessageStore(state => state.setMessages)
+  const problemStatement = useMessageStore(state => state.problemStatement)
   const [inttopicList, setTopics] = useState(() => topics)
   const [exrTopics, setExtTopics] = useState(() => topics2)
 
   const [chatId, _] = useState(() => localStorage.getItem('newChatId'))
   const user = Cookie.get('email')
+  const navigate = useNavigate()
 
   const internalTopics = useLiveQuery(() => {
     return db.internalTopics
@@ -56,9 +60,13 @@ function TopicSelection() {
         },
         body: JSON.stringify({
           stepId: 1,
-          query: messages
+          query: problemStatement
         })
-      }).then(res => res.json())
+      })
+        .then(res => res.json())
+        .catch(err => {
+          console.log('Error while fetching', err)
+        })
 
       if (response) {
         console.log('response', response)
@@ -74,6 +82,7 @@ function TopicSelection() {
     setTopics: Dispatch<SetStateAction<TopicTypes[]>>
   }) => {
     const [newTopic, setNewTopic] = useState('')
+    
     return (
       <>
         {topicList.map(topic => (
@@ -164,83 +173,64 @@ function TopicSelection() {
           <AddCircleOutlineIcon className="cursor-pointer" />
           <p>Add more</p>
         </div>
-        <form
-          onSubmit={e => {
-            e.preventDefault()
+        <div>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
 
-            setTopics(prev => [
-              ...prev,
-              {
-                id: nanoid(),
-                name: newTopic,
-                mode: 'selected',
-                isNew: true
-              }
-            ])
-            setNewTopic('')
+              setTopics(prev => [
+                ...prev,
+                {
+                  id: nanoid(),
+                  name: newTopic,
+                  mode: 'selected',
+                  isNew: true
+                }
+              ])
+              setNewTopic('')
 
-            addInternalTopic(
-              //@ts-ignore
-              user,
-              chatId,
-              newTopic
-            )
-          }}
-        >
-          <div className="flex gap-2">
-            <Input
-              placeholder="Enter topic name"
-              className="bg-white"
-              onChange={e => {
-                setNewTopic(e.target.value)
-              }}
-              value={newTopic}
-              required
-            />
-            <Button type="submit">Add</Button>
-          </div>
-        </form>
+              addInternalTopic(
+                //@ts-ignore
+                user,
+                chatId,
+                newTopic
+              )
+            }}
+          >
+            <div className="flex gap-2 w-[20vw]">
+              <Input
+                placeholder="Enter topic name"
+                className="bg-white"
+                onChange={e => {
+                  setNewTopic(e.target.value)
+                }}
+                value={newTopic}
+                required
+              />
+              <Button type="submit">Add</Button>
+            </div>
+          </form>
+        </div>
       </>
     )
   }
 
   return (
-    <div className="bg-muted rounded-2xl px-4 py-5 flex flex-col gap-4 max-h-[500px] overflow-auto">
-      <VerticalTabs
-        FistComp={<TopicList topicList={inttopicList} setTopics={setTopics} />}
-        SecondComp={
-          <TopicList topicList={exrTopics} setTopics={setExtTopics} />
-        }
-      />
-
-      <div className="flex  justify-end">
-        {featureFlag === 'v1' && (
-          <Button
-            onClick={() => {
-              setMessages([
-                ...messages,
-                {
-                  id: nanoid(),
-                  display: (
-                    <UserMessage>
-                      <div>User Selected topic</div>
-                    </UserMessage>
-                  )
-                },
-                {
-                  id: nanoid,
-                  display: (
-                    <BotMessage content="">
-                      <SlidesGrid />
-                    </BotMessage>
-                  )
-                }
-              ])
-            }}
-          >
-            Next
-          </Button>
-        )}
+    <div className="px-40">
+      <StepDefinition stepName="Research Topics" route="/process" />
+      <div className="bg-zinc-50 px-4 flex flex-col gap-4 overflow-auto max-h-[50vh] w-full mt-5">
+        <VerticalTabs
+          FistComp={
+            <TopicList topicList={inttopicList} setTopics={setTopics} />
+          }
+          SecondComp={
+            <TopicList topicList={exrTopics} setTopics={setExtTopics} />
+          }
+        />
+      </div>
+      <hr />
+      <div className="flex justify-end mt-5">
+        <Button onClick={() => navigate('/process/view-summary')}>Next</Button>
       </div>
     </div>
   )
