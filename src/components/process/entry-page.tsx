@@ -7,19 +7,19 @@ import React from 'react'
 const conversatationList = [
   {
     id: 1,
-    title: 'Problem Statement 1',
+    title: '#1',
     description:
       'Client has higher distribution costs than peers. Aspires to reduce distribution costs by 10%-15% by 2025. Client wishes to identify levers for cost reduction and wants Kearney perspectives on developing a roadmap with specific strategies to achieve the same'
   },
   {
     id: 2,
-    title: 'Problem Statement 2',
+    title: '#2',
     description: ` 
         A fast-growing footwear retailer (ie Allbirds) has expanded into many new geographies over the past couple years. Recently, they have seen their supply chain costs increase significantly and are having trouble shipping products to stores and customers efficiently, leading to lost revenue from missed sales`
   },
   {
     id: 3,
-    title: 'Problem Statement 3',
+    title: '#3',
     description: ` 
         A key grocery client is seeing their in-store performance and profitability drop consequentially over the past few quarters. They believe this is driven by rising costs and changing consumer preferences. They would like Kearney to take a look and help diagnose the problem`
   }

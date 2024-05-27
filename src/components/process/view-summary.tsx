@@ -11,6 +11,7 @@ import { StepDefinition } from '../step-def'
 import MultiCarousalSlide from '../multi-slide-carousal'
 import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom'
+import { cn } from '../../lib/utils'
 
 function ViewSummary() {
   const [open, setOpen] = React.useState(true)
@@ -21,6 +22,45 @@ function ViewSummary() {
   )
   const navigate = useNavigate()
   const imgSrcs = useMessageStore(state => state.imgSrcs)
+
+  const [researchTopics, setResearchTopics] = React.useState([
+    {
+      id: 1,
+      name: 'Research Topic 1',
+      slides: 3,
+      selected: true
+    },
+    {
+      id: 2,
+      name: 'Research Topic 2',
+      slides: 2,
+      selected: false
+    },
+    {
+      id: 3,
+      name: 'Research Topic 3',
+      slides: 5,
+      selected: false
+    },
+    {
+      id: 4,
+      name: 'Research Topic 4',
+      slides: 4,
+      selected: false
+    },
+    {
+      id: 5,
+      name: 'Research Topic 5',
+      slides: 5,
+      selected: false
+    },
+    {
+      id: 6,
+      name: 'Research Topic 6',
+      slides: 5,
+      selected: false
+    }
+  ])
   return (
     <>
       <div className="px-40 overflow-auto max-h-[720px]">
@@ -38,11 +78,38 @@ function ViewSummary() {
         > */}
           <MultiCarousalSlide items={4}>
             {/* <div className=""> */}
-            {Array.from({ length: 10 }).map((_, index) => (
+            {researchTopics?.map((slide, index) => (
               <>
-                <div className="h-20 flex flex-col bg-muted rounded shadow-md items-center cursor-pointer pb-1 overflow-auto px-1 mx-2">
-                  <h1 className="text-xl ">{`ReseachTopic ${index}`}</h1>
-                  <p>Slides :{index + 1}</p>
+                <div
+                  className={cn(
+                    'h-20 flex flex-col bg-muted rounded shadow-md items-center cursor-pointer pb-1 overflow-auto px-1 mx-2',
+                    {
+                      'bg-purple-500': slide.selected,
+                      'text-white': slide.selected
+                    }
+                  )}
+                  key={slide.id}
+                  role="custom-button"
+                  onClick={() => {
+                    setResearchTopics(prev => {
+                      const newTopics = [...prev]
+                      //all selected false
+                      newTopics.forEach((topic, i) => {
+                        newTopics[i] = {
+                          ...newTopics[i],
+                          selected: false
+                        }
+                      })
+                      newTopics[index] = {
+                        ...newTopics[index],
+                        selected: !newTopics[index].selected
+                      }
+                      return newTopics
+                    })
+                  }}
+                >
+                  <h1 className="text-xl ">{slide.name}</h1>
+                  <p>Slides :{slide.slides}</p>
                 </div>
               </>
             ))}

@@ -32,10 +32,14 @@ export default function LoginForm() {
         onSubmit={onSubmit}
       >
         <div className="w-full flex-1 rounded-xl border bg-white px-6 pb-4 pt-8 shadow-md  md:w-96 dark:bg-zinc-950">
-          <img
-            alt="logo"
-            src="https://www.kearney.com/o/atk-dot-com-theme/images/favicon-kearney.ico"
-          />
+          <div className="flex gap-2">
+            <img
+              alt="logo"
+              src="https://www.kearney.com/o/atk-dot-com-theme/images/favicon-kearney.ico"
+            />
+            <h2 className="mt-8 text-xl font-semibold">Kearney GEN AI</h2>
+          </div>
+
           <h1 className="mb-3 text-2xl font-bold mt-6">
             Please log in to continue.
           </h1>
