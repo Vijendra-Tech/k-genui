@@ -23,6 +23,10 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { TOPIC_GENERATION_BASE_URL } from '../../utils/constants'
 import { StepDefinition } from '../step-def'
 import { useNavigate } from 'react-router-dom'
+import FeedbackForm from './feedback-form'
+import FeedabackConatainer from '../feedback-container'
+import { FormControl, InputLabel, NativeSelect, Select } from '@mui/material'
+import GeneralFeedback from '../general-feedback'
 
 function TopicSelection() {
   const messages = useMessageStore(state => state.messages)
@@ -59,8 +63,8 @@ function TopicSelection() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          stepId: 1,
-          query: problemStatement
+          stepId: 'problemn statement',
+          user_input: problemStatement
         })
       })
         .then(res => res.json())
@@ -82,7 +86,8 @@ function TopicSelection() {
     setTopics: Dispatch<SetStateAction<TopicTypes[]>>
   }) => {
     const [newTopic, setNewTopic] = useState('')
-    
+    const [show, setShow] = useState(true)
+
     return (
       <>
         {topicList.map(topic => (
@@ -156,6 +161,43 @@ function TopicSelection() {
             >
               {topic.name}
             </Button>
+            {topic.mode === 'existed' && (
+              <>
+                <div className="relative flex flex-col">
+                  {/* <Select className='w-56 h-8'>
+                      <option>Slide 1</option>
+                      <option>Slide 2</option>
+                      <option>Slide 3</option>
+                      <option>Slide 4</option>
+                    </Select> */}
+                  <FormControl fullWidth>
+                    <InputLabel
+                      variant="standard"
+                      htmlFor="uncontrolled-native"
+                    >
+                      Please provide feedback
+                    </InputLabel>
+                    <NativeSelect
+                      defaultValue={30}
+                      inputProps={{
+                        name: 'Feedback',
+                        id: 'uncontrolled-native'
+                      }}
+                    >
+                      <option value={'None'}>None</option>
+                      <option value={'Not related to problem statement'}>
+                        Not related to problem statement
+                      </option>
+                      <option
+                        value={'Related to problem statement, but not required'}
+                      >
+                        Related to problem statement, but not required
+                      </option>
+                    </NativeSelect>
+                  </FormControl>
+                </div>
+              </>
+            )}
 
             {topic.isNew && (
               <span
@@ -232,7 +274,10 @@ function TopicSelection() {
         />
       </div>
       <hr />
-      <div className="flex justify-end mt-5">
+      <div className="flex justify-between mt-5">
+        <div>
+          <GeneralFeedback stepName="researchTopic" />
+        </div>
         <Button onClick={() => navigate('/process/view-summary')}>Next</Button>
       </div>
     </div>
