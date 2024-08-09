@@ -38,35 +38,30 @@ export function PromptForm({
   }, [])
 
 
-  const handleDragEnter = e => {
+  const handleDragEnter = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
     setIsDragging(true)
   }
 
-  const handleDragOver = e => {
+  const handleDragOver = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
   }
 
-  const handleDrop = e => {
+  const handleDrop = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
     setIsDragging(false)
     // const data = e.dataTransfer.getData('text')
     // setInput(data)
-    console.log('Dropped');
-    
+    console.log('Dropped')
   }
 
-  const handleDragLeave = e => {
+  const handleDragLeave = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
     setIsDragging(false)
   }
 
   return (
     <div
-      // onDragEnter={handleDragEnter}
-      // onDragOver={handleDragOver}
-      // onDrop={handleDrop}
-      // onDragLeave={handleDragLeave}
     >
       {isDragging && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

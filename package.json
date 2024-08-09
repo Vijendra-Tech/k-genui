@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@azure/msal-browser": "^3.20.0",
+    "@azure/msal-react": "^2.0.22",
     "@cyntler/react-doc-viewer": "^1.14.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",

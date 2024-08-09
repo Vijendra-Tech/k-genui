@@ -3,6 +3,7 @@ import App from './App.tsx'
 import './index.css'
 import { Providers } from './components/providers.tsx'
 import { BrowserRouter } from 'react-router-dom'
+import { msalInstance } from './auth'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Providers
@@ -13,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   >
     <div className="flex flex-col min-h-screen">
       <BrowserRouter>
-        <App />
+        <App instance = {msalInstance}/>
       </BrowserRouter>
     </div>
   </Providers>
