@@ -7,11 +7,13 @@ export const msalConfig = {
       'https://login.microsoftonline.com/761d8139-1fe3-4ce3-972b-a8e08e80028f',
     redirectUri: 'http://localhost:5173',
     postLogoutRedirectUri: 'http://localhost:5173/login',
+    // redirectUri: 'https://kearney-sso.netlify.app',
+    // postLogoutRedirectUri: 'https://kearney-sso.netlify.app/login',
     navigateToLoginRequestUrl: false
   },
   cache: {
     cacheLocation: 'sessionStorage',
-    storeAuthStateInCookie: false
+    storeAuthStateInCookie: false   
   },
   system: {
     loggerOptions: {
