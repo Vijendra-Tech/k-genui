@@ -3,7 +3,7 @@ export const fetchData = (endpoint: string,accessToken:string) => {
     const bearer = `Bearer ${accessToken}`
     headers.append('Authorization', bearer)
     
-    const options = {
+    const options = {   
         method: 'GET',
         headers: headers
     }

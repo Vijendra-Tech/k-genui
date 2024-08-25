@@ -8,6 +8,8 @@ import EntryPage from '../components/process/entry-page'
 import GenerateStoryLine from '../components/process/generate-storyline'
 import Confirmation from '../components/process/confirmation'
 import FinalGreeting from '../components/process/final-greeting'
+import Dashboard from '../components/process/dashboard'
+import AiAssistant from '../components/process/ai-assistant'
 
 function Router() {
   const routes = useRoutes([
@@ -34,7 +36,6 @@ function Router() {
     {
       path: '/process/final',
       element: <ChatHome children={<FinalGreeting />} />
-    
     },
 
     {
@@ -42,8 +43,16 @@ function Router() {
       element: <ChatHome children={<EntryPage />} />
     },
     {
+      path: '/ai',
+      element: <ChatHome children={<AiAssistant />} />
+    },
+    {
       path: '/login',
-      element: <LoginForm />
+      element: <LoginForm handleSSO={() => {}} />
+    },
+    {
+      path: '/dashboard',
+      element: <Dashboard />
     }
   ])
   return routes

@@ -23,6 +23,15 @@ function UserMenu({ open, anchorEl, handleClose,handleLogout }: UserMenuProps) {
     scopes: ['user.read']
   })
 
+  function signOutClickHandler() {
+    const logoutRequest = {
+      // account: instance.getAccountByHomeId(homeAccountId),
+      mainWindowRedirectUri: window.location.origin,
+      postLogoutRedirectUri: `${window.location.origin}/login`
+    }
+    instance.logoutPopup(logoutRequest)
+  }
+
   useEffect(()=>{
       if(!graphData){
          return
@@ -59,14 +68,14 @@ function UserMenu({ open, anchorEl, handleClose,handleLogout }: UserMenuProps) {
     >
       {/* <MenuItem>{email}</MenuItem> */}
       <MenuItem>{instance.getActiveAccount()?.name}</MenuItem>
-      <div className='flex w-80 h-24  flex-col gap-2 px-4 border border-purple-400'>
+      <div className="flex w-80 h-24  flex-col gap-2 px-4 border border-purple-400">
         <p>Access Token</p>
         <pre>{result?.accessToken}</pre>
       </div>
       <MenuItem>{instance.getActiveAccount()?.username}</MenuItem>
 
       <MenuItem
-        onClick={() => {
+        onClick={()=>{
           instance.logoutRedirect()
         }}
         sx={{

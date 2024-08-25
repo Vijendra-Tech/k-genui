@@ -1,25 +1,23 @@
 import * as React from 'react'
 import Textarea from 'react-textarea-autosize'
 
-import { nanoid } from 'nanoid'
 import { useEnterSubmit } from '../lib/hooks/use-enter-submit'
 import { Button } from './ui/button'
 import { IconArrowElbow } from './ui/icons'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { useMessageStore } from '../stores/useMessageStore'
-import UserMessage from './user-message'
-import BotMessage from './bot-message'
-import TopicSelection from './process/topic-selection'
 import { useNavigate } from 'react-router-dom'
 
 export function PromptForm({
   input,
   setInput,
-  placeholder = 'Enter your Problem Statement here..'
+  placeholder = 'Enter your Problem Statement here..',
+  handleSubmit
 }: {
   input: string
   setInput: (value: string) => void
   placeholder?: string
+  handleSubmit?: () => void
 }) {
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
@@ -36,7 +34,6 @@ export function PromptForm({
       inputRef.current.focus()
     }
   }, [])
-
 
   const handleDragEnter = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault()
@@ -61,8 +58,7 @@ export function PromptForm({
   }
 
   return (
-    <div
-    >
+    <div>
       {isDragging && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
@@ -73,36 +69,7 @@ export function PromptForm({
           </div>
         </div>
       )}
-      <form
-        ref={formRef}
-        onSubmit={async (e: any) => {
-          e.preventDefault()
-
-          // Blur focus on mobile
-          if (window.innerWidth < 600) {
-            e.target['message']?.blur()
-          }
-
-          const value = input.trim()
-          setInput('')
-          if (!value) return
-
-          setMessages([
-            ...messages,
-            { id: nanoid(), display: <UserMessage>{value}</UserMessage> },
-            {
-              id: nanoid(),
-              display: (
-                <BotMessage content={'Please select topics'}>
-                  <TopicSelection />
-                </BotMessage>
-              )
-            }
-          ])
-          setProblemStatement(value)
-          navigate('/process/problem-statement')
-        }}
-      >
+      <form ref={formRef} onSubmit={handleSubmit}>
         <div className="relative flex max-h-60 w-full grow flex-col bg-muted px-12 sm:px-12">
           <Textarea
             ref={inputRef}

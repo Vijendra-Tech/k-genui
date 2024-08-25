@@ -9,7 +9,7 @@ export const msalConfig = {
     postLogoutRedirectUri: 'http://localhost:5173/login',
     // redirectUri: 'https://kearney-sso.netlify.app',
     // postLogoutRedirectUri: 'https://kearney-sso.netlify.app/login',
-    navigateToLoginRequestUrl: false
+    navigateToLoginRequestUrl: true
   },
   cache: {
     cacheLocation: 'sessionStorage',
