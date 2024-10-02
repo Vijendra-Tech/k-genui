@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMessageStore } from '../../stores/useMessageStore'
 import { StepDefinition } from '../step-def'
 import { ChatPanel } from '../chat-panel'
@@ -9,8 +9,28 @@ import { useNavigate } from 'react-router-dom'
 const ProblemStatement = () => {
   const problemStatement = useMessageStore(state => state.problemStatement)
   const [input, setInput] = useState('')
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const { isAtBottom, scrollToBottom } = useScrollAnchor()
   const route = useNavigate()
+
+    useEffect(() => {
+      const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+        setIsRefreshing(true)
+        // Optionally, you can set a custom message
+      }
+
+      window.addEventListener('beforeunload', handleBeforeUnload)
+
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload)
+      }
+    }, [])
+
+    useEffect(() => {
+      if (isRefreshing) {
+        console.log('User clicked the refresh button or navigated away')
+      }
+    }, [isRefreshing])
   return (
     <div className="flex justify-center items-center px-40 w-full">
       <div className="flex flex-col w-[100%]">

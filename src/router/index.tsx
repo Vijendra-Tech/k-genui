@@ -10,6 +10,7 @@ import Confirmation from '../components/process/confirmation'
 import FinalGreeting from '../components/process/final-greeting'
 import Dashboard from '../components/process/dashboard'
 import AiAssistant from '../components/process/ai-assistant'
+import AnimationSuccess from '../components/process/success-animation'
 
 function Router() {
   const routes = useRoutes([
@@ -53,6 +54,10 @@ function Router() {
     {
       path: '/dashboard',
       element: <Dashboard />
+    },
+    {
+      path: '/animation',
+      element: <AnimationSuccess />
     }
   ])
   return routes

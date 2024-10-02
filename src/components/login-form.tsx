@@ -5,6 +5,7 @@ import { IconSpinner } from './ui/icons'
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { Button } from './ui/button'
+import { KeyRound } from 'lucide-react'
 
 export default function LoginForm({handleSSO}:{handleSSO:()=>void}) {
   const router = useNavigate()
@@ -67,10 +68,10 @@ export default function LoginForm({handleSSO}:{handleSSO:()=>void}) {
          <div className='h-10 shadow-md rounded-md'>
              <Button
                variant="ghost"
-               className="text-xs font-semibold text-primary dark:text-zinc-100 dark:hover:text-zinc-200"
+               className="text-xl font-semibold text-primary dark:text-zinc-100 dark:hover:text-zinc-200"
                onClick={handleSSO}
               >
-                Sign with SSO
+                <KeyRound/>Signin with Microsoft
               </Button>
          </div>
       </div>
